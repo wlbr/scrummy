@@ -46,7 +46,7 @@ README.html
 bin/
 #vendor/
 charts.yaml
-scrummy
+/scrummy
 _examples/
 data/
 *.png
