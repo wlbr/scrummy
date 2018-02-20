@@ -1,0 +1,27 @@
+{
+    
+    // Whether to enable AppInsights to track user telemetry data.
+    "code-runner.enableAppInsights": false,
+
+    // Whether to clear previous output before each run.
+    "code-runner.clearPreviousOutput": true,
+
+    // Whether to ignore selection to always run entire file.
+    "code-runner.ignoreSelection": false,
+    
+    // Whether to save all files before running.
+    "code-runner.saveAllFilesBeforeRun": false,
+    
+    // Whether to save the current file before running.
+    "code-runner.saveFileBeforeRun": true,
+
+    // Set the working directory.
+    "code-runner.cwd": "",
+
+    // Set the custom command to run.
+    "code-runner.customCommand": "go run cmd/scrummy/scrummy.go",
+
+    // Whether to show 'Run Code' icon in editor title menu.
+    "code-runner.showRunIconInEditorTitleMenu": false,
+
+}

@@ -38,10 +38,11 @@ func NewVisualizer() *Visualizer {
 	return v
 }
 
+// Render draws the contents of a Visualizer.
 func (v Visualizer) Render() {
-	for k, s := range v.dataseries {
+	//	for k, s := range v.dataseries {
 
-	}
+	//	}
 }
 
 // DrawGraphs -  well, it draws the graphs
