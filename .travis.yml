@@ -1,14 +1,17 @@
 language: go
 sudo: false
 go:
-  - stable
+- stable
 before_install:
-  - go get github.com/mattn/goveralls
-  - make dep
-  - make generate
-  - "$HOME/gopath/bin/goveralls -service=travis-ci"
-script: 
-  - make buildcmd
+- go get golang.org/x/tools/cmd/cover
+- go get github.com/mattn/goveralls
+- make dep
+- make generate
+script:
+- go test -v -covermode=count -coverprofile=coverage.out
+- "$HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken
+  $COVERALLS_TOKEN"
+- make buildcmd
 deploy:
   provider: releases
   skip_cleanup: true
@@ -16,11 +19,14 @@ deploy:
   api_key:
     secure: XPhw38FunRJcRFgVY8ZLSIm1tD8WL+xxlsIgIRl7yGxTCUxwjv5W35RHRxObGuJD4XtN/xIaliNS7SV8e8d31B2+Ar6oZRdnLUW3rfBPBW9WkkuLXt1fW07kw3HCk3scoSqi6RFmdKMmMYb5UVGvJGP/RaXUfo+MnkUFGte725MMTAaYulRDtwOdTa5NBazDg6DAqOlKczt8uai6ZdyMxQAGPoaC2fLsQ2LDNrELkxFREQ6FU5tj6l5MaodtBUhURZg/mqGGCUzoTqGIXBGW8FkFOSYEwOyXori3b9lUf3eHtbUh9V9pveQEo/SPUKHv6pPgrxvebLlAoPUVZTrlJF/nw5/QINKnbqIZyt87mdguKEVppGkUkj7Q9vmgt4sd3stC0WNmPnGigtsfAuxRFf7Mj+PBFZXkYkM7WsjnbCb3fDMksVSm4lFA2NSajLKqk87OixaRjuyd6mn43HGd8I3iGKWj4w+Ue9eZF8rbDPWjD/w9xM1i2vrtWPivSw3VlcvasPcrcQGpoSuISB8MPHBaJVqZ14kLsAKXXOMfeymNbf/e54RIaORh/p0oE5MPbYAI7VI+kNFxklA9VYbhzKm+nEVYSNanye2ynngnwcaMlNTOJ0kbYgRGB6QJmoP5a4vLWoQXq6u4LZEiPbS9F/aUK+QtyTilsiIuHauMQVw=
   file:
-    - bin/scrummy_linux_x86_64
-    - bin/scrummy_osx_x86_64
-    - bin/scrummy_win32
-    - bin/scrummy_win64
+  - bin/scrummy_linux_x86_64
+  - bin/scrummy_osx_x86_64
+  - bin/scrummy_win32
+  - bin/scrummy_win64
   on:
     repo: wlbr/scrummy
     tags: true
 after_deploy: make clean
+env:
+  global:
+    secure: SM3X3/P4cDQOzZ0zQVZexf3De8WAaDz+hO2qIr3SmOnnAy01YkA932a+/LZQY0m70Lx1btm5n9yvvji5VyRoVMFCZjLNPm2I/9b0cXu2KyY+J+AlDdMtPs4ha/zN8I3WU5wBAk3HHVH11n4IemHDOQxK4YMt7J4kqhSRoNhpHEgCtUZq4pCGuq8h5L+yQzqwTNjiZouV2/eWt9bZyHLuz+zP0BxWqm3vy7PNbWjYn4WsqyGGkM2fKFV+o44hJnIK4GbypCSz4ybNA3/aAv/psaq1O51WGk8tYTXCYcuMgomRCdFj2qI4QYIRIinTB4UXhDzhZo7zj1cm2pBLNrfxS3TJ2MIUhcZtWGLJBpSIsrKYiq6XQtHwEsD4KcjPQ5mVs5L1OHXmxAHhktifo/Fvuc2ydz1WEQeMGAugt61tR/2nIh2LcKoDLTi6HkVyEMd03CGVeAqb2rT7QI6+Q31At0WFQK4dbkWsWvpibyvwo2BhRsKIgdgzwl2B+AbC44Q4gKaoTvHZ9hBqpLM6hp744l8KgRMtChg9/W8mE32D6DSaFS3HhnlNVFB4pGdrbKuy8IUfF5DhEX8xUAKnC3kNw3vVep9UA1EsiZFoxnnnqlxXzRJWZKHq+keDuCbSrCg/5ooBmORZtQ2vOiZg9zgI1lPDt5PUeKDpENCamrRBW/g=
