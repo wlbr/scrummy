@@ -22,7 +22,7 @@ run: generate
 debug: generate
 	dlv debug cmd/$(TARGET)/$(TARGET).go -RunAsServer
 
-buildcmd: clean dep generate
+buildcmd: clean generate
 	mkdir -p bin
 	GOOS=linux GOARCH=amd64   go build -o bin/$(TARGET)_linux_x86_64 -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
 	GOOS=darwin GOARCH=amd64  go build -o bin/$(TARGET)_osx_x86_64   -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
