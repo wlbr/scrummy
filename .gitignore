@@ -12,6 +12,7 @@ _test
 [568vq].out
 
 # Output of the go coverage tool, specifically when used with LiteIDE
+#coverage.out
 *.out
 
 # Project-local glide cache, RE: https://github.com/Masterminds/glide/issues/736
@@ -35,20 +36,21 @@ _testmain.go
 *.prof
 
 
-
-README.html
-
+#ide stuff
 *.sublime-workspace
 *.sublime-project
 
 .idea/
 .vscode/
+
+#binaries and generated stuff
 bin/
 #vendor/
-charts.yaml
-/scrummy
 _examples/
 data/
 *.png
+README.html
+/scrummy
 
+charts.yaml
 gotils/loglevel_enumer.go

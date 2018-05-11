@@ -54,7 +54,7 @@ func init() {
 	var logfilename string
 	config = gotils.Config{}
 
-	var loglevel = "unkown"
+	var loglevel = "unknown"
 	var err error
 	flag.StringVar(&loglevel, "LogLevel", "All", "Determines logging verbosity. [Off|Info|Debug|Warnings|Error|Fatal|All].")
 	flag.StringVar(&logfilename, "LogFile", "", "Sets the name of the logfile. Uses STDOUT if empty.")

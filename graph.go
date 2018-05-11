@@ -84,15 +84,15 @@ func DrawGraphs(xfile string) {
 		YAxis:   chart.YAxisSecondary,
 	}
 
-	committment := GetFloatColumn(rows, 6, offset)
-	committmentSeries := chart.ContinuousSeries{
+	commitment := GetFloatColumn(rows, 6, offset)
+	commitmentSeries := chart.ContinuousSeries{
 		Name: "Commitment  (in SP)",
 		Style: chart.Style{
 			Show:        true,
 			StrokeColor: chart.ColorOrange,
 		},
 		XValues: sprintno,
-		YValues: committment,
+		YValues: commitment,
 		YAxis:   chart.YAxisSecondary,
 	}
 
@@ -109,7 +109,7 @@ func DrawGraphs(xfile string) {
 	}
 
 	var result []float64
-	for i, c := range committment {
+	for i, c := range commitment {
 		result = append(result, achievement[i]/c*100)
 	}
 
@@ -316,7 +316,7 @@ func DrawGraphs(xfile string) {
 			GridLines: gridlines,
 		},
 		Series: []chart.Series{
-			committmentSeries,
+			commitmentSeries,
 			achievementSeries,
 			resultsSeries,
 			resultlinreg,

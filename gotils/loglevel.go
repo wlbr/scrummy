@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// LogLevel sets the criticallity of a logging output. It is used to filter logging messages
+// LogLevel sets the criticality of a logging output. It is used to filter logging messages
 // depending on their priority. Compare to log4j.
 type LogLevel int
 
