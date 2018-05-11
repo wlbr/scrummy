@@ -1,12 +1,13 @@
 language: go
 sudo: false
 go:
-- tip
+ - stable
 before_install:
-- go get github.com/mattn/goveralls
+ - make dep
+ - go get github.com/mattn/goveralls
 script:
-- "$HOME/gopath/bin/goveralls -service=travis-ci"
-- make buildcmd
+ - "$HOME/gopath/bin/goveralls -service=travis-ci"
+ - make buildcmd
 deploy:
   provider: releases
   skip_cleanup: true
