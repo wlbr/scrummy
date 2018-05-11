@@ -22,7 +22,7 @@ run: generate
 debug: generate
 	dlv debug cmd/$(TARGET)/$(TARGET).go -RunAsServer
 
-buildcmd: clean generate
+buildcmd: clean dep generate
 	mkdir -p bin
 	GOOS=linux GOARCH=amd64   go build -o bin/$(TARGET)_linux_x86_64 -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
 	GOOS=darwin GOARCH=amd64  go build -o bin/$(TARGET)_osx_x86_64   -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
@@ -37,4 +37,5 @@ deploy: rbuild
 dep:
 	go get -u github.com/360EntSecGroup-Skylar/excelize
 	go get -u github.com/wcharczuk/go-chart
-	go get -u github.com/wlbr/enumer
+	#go get -u github.com/wlbr/enumer
+	go get -u github.com/alvaroloes/enumer
