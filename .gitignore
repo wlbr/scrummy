@@ -50,3 +50,5 @@ charts.yaml
 _examples/
 data/
 *.png
+
+gotils/loglevel_enumer.go
