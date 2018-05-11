@@ -6,8 +6,8 @@ before_install:
   - go get github.com/mattn/goveralls
   - make dep
   - make generate
-script: 
   - "$HOME/gopath/bin/goveralls -service=travis-ci"
+script: 
   - make buildcmd
 deploy:
   provider: releases
