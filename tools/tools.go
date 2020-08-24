@@ -2,7 +2,6 @@ package tools
 
 import (
 	"expvar"
-	"fmt"
 	"runtime"
 )
 
@@ -35,6 +34,12 @@ func Maxf64(v []float64) float64 {
 	return m
 }
 
+var (
+	buildversionExpvar, buildstampExpvar, compilerversionExpvar     *expvar.String
+	gorootExpvar, goosExpvar, goarchExpvar, logFile, activeloglevel *expvar.String
+	numcpuExpvar, numgoroutineExpvar                                *expvar.Int
+)
+
 func addAdditionalExpVars(config *CommonConfig) {
 	buildversionExpvar = expvar.NewString("buildversion")
 	buildstampExpvar = expvar.NewString("buildtimestamp")
@@ -48,7 +53,7 @@ func addAdditionalExpVars(config *CommonConfig) {
 	logFile = expvar.NewString("LogFile")
 
 	buildversionExpvar.Set(config.GitVersion)
-	buildstampExpvar.Set(fmt.Sprintf("%s", config.BuildTimeStamp))
+	buildstampExpvar.Set(config.BuildTimeStamp.String())
 	compilerversionExpvar.Set(runtime.Version())
 	gorootExpvar.Set(runtime.GOROOT())
 	goosExpvar.Set(runtime.GOOS)

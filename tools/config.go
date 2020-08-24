@@ -1,19 +1,12 @@
 package tools
 
 import (
-	"expvar"
 	"flag"
 	"fmt"
 	"os"
 	"runtime"
 	"strings"
 	"time"
-)
-
-var (
-	buildversionExpvar, gitversionExpvar, buildstampExpvar, compilerversionExpvar *expvar.String
-	gorootExpvar, goosExpvar, goarchExpvar, logFile, activeloglevel               *expvar.String
-	numcpuExpvar, numgoroutineExpvar                                              *expvar.Int
 )
 
 type CommonConfig struct {

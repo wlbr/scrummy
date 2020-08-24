@@ -1,18 +1,17 @@
 {
-	"version": "0.2.0",
-	"configurations": [
-        {
-			"name": "Launch",
-			"type": "go",
-			"request": "launch",
-			"mode": "debug",
-			"remotePath": "",
-			"port": 2345,
-			"host": "127.0.0.1",
-			"program": "${workspaceRoot}/cmd/scrummy/scrummy.go",
-			"env": {},
-			"args": [],
-			"showLog": true
-		}
-	]
+  "version": "0.2.0",
+  "configurations": [{
+    "name": "Launch file",
+    "type": "go",
+    "request": "launch",
+    "mode": "auto",
+    "remotePath": "",
+    "port": 2345,
+    "host": "127.0.0.1",
+    "program": "${workspaceRoot}/cmd/scrummy/scrummy.go",
+    "cwd": "${workspaceRoot}",
+    "env": {},
+    "args": ["-loglevel","All"],
+    "showLog": true
+  }]
 }
