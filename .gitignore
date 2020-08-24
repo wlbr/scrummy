@@ -39,7 +39,6 @@ _testmain.go
 #ide stuff
 *.sublime-workspace
 *.sublime-project
-
 .idea/
 .vscode/
 
@@ -53,4 +52,4 @@ README.html
 /scrummy
 
 charts.yaml
-gotils/loglevel_enumer.go
+#gotils/loglevel_enumer.go

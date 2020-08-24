@@ -1,8 +1,6 @@
 package scrummy
 
-import (
-	"github.com/wlbr/scrummy/gotils"
-)
+import "github.com/wlbr/scrummy/tools"
 
 // Importer x import a boards data into the internal object model.
 type Importer interface {
@@ -16,7 +14,7 @@ type Exporter interface {
 
 // A Session represents a list of configurations of graphs to be generated
 type Session interface {
-	Config() gotils.Config
+	Config() tools.CommonConfig
 	Read() Session
 	Generate()
 }

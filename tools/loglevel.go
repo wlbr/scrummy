@@ -1,4 +1,4 @@
-package gotils
+package tools
 
 //go:generate enumer -type LogLevel loglevel.go
 
@@ -25,8 +25,8 @@ const (
 	All
 )
 
-var loggerflags = log.Ldate | log.Ltime | log.Lshortfile | log.Lmicroseconds | log.LUTC
-var conveninceLogger *Logger
+var loggerflags = log.Ldate | log.Ltime | log.Llongfile | log.Lmicroseconds | log.LUTC
+var convenienceLogger *Logger
 
 // A Logger is an onbject the offers several method to write Messages to a stream.
 // Atually it is a wrapper aroung the 'log' package, that enhances the LogLevel functionality.
@@ -44,21 +44,21 @@ func NewLoggerFromFile(logfile io.Writer, level LogLevel) *Logger {
 	l := &Logger{}
 	l.internallogger = log.New(logfile, "LOG: ", loggerflags)
 	l.ActiveLoglevel = level
-	if conveninceLogger == nil {
-		conveninceLogger = l
+	if convenienceLogger == nil {
+		convenienceLogger = l
 	}
 	return l
 }
 
 // NewLogger creates a new Logger. It take a string file name as output file
 // and a LogLevel to filter the messages that are wanted.
-// The logger will use io.StdOut if the log filename string parameter is "STDOUT"
+// The logger will use io.StdOut if the log filename string parameter is "STDERR"
 func NewLogger(logfilename string, level LogLevel) *Logger {
 	var lfilename string
 	var logfile io.Writer
-	if logfilename == "" || strings.ToUpper(logfilename) == "STDOUT" {
-		lfilename = "STDOUT"
-		logfile = os.Stdout
+	if logfilename == "" || strings.ToUpper(logfilename) == "STDERR" {
+		lfilename = "<STDERR>"
+		logfile = os.Stderr
 	} else {
 		lfilename = logfilename
 		logfile, _ = os.OpenFile(lfilename, os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
@@ -108,7 +108,7 @@ func (l *Logger) Fatal(format string, args ...interface{}) {
 // SetConvenienceLogger sets a logger as a singleton object. The LogInfo etc.
 // functions use this singleton to offer logging function without an object context.
 func (l *Logger) SetConvenienceLogger() {
-	conveninceLogger = l
+	convenienceLogger = l
 }
 
 func outputToStandardLogger(level LogLevel, format string, args ...interface{}) {
@@ -122,55 +122,55 @@ func outputToStandardLogger(level LogLevel, format string, args ...interface{}) 
 }
 
 // LogInfo works just as fmt.Printf, but prints into the Convenience loggers stream, as set with
-// SetConvenienceLogger(). It usses the standard logger (package log) if te Convenience logger is unset.
+// SetConvenienceLogger(). It uses the standard logger (package log) if te Convenience logger is unset.
 // The message is only printed if ActiveLogLevel is set higher or equal to 'Info'
 func LogInfo(format string, args ...interface{}) {
-	if conveninceLogger != nil {
-		conveninceLogger.writelog(Info, format, args...)
+	if convenienceLogger != nil {
+		convenienceLogger.writelog(Info, format, args...)
 	} else {
 		outputToStandardLogger(Info, format, args...)
 	}
 }
 
 // LogDebug works just as fmt.Printf, but prints into the Convenience loggers stream, as set with
-// SetConvenienceLogger(). It usses the standard logger (package log) if te Convenience logger is unset.
+// SetConvenienceLogger(). It uses the standard logger (package log) if te Convenience logger is unset.
 // The message is only printed if ActiveLogLevel is set higher or equal to 'Debug'
 func LogDebug(format string, args ...interface{}) {
-	if conveninceLogger != nil {
-		conveninceLogger.writelog(Debug, format, args...)
+	if convenienceLogger != nil {
+		convenienceLogger.writelog(Debug, format, args...)
 	} else {
 		outputToStandardLogger(Debug, format, args...)
 	}
 }
 
 // LogWarn works just as fmt.Printf, but prints into the Convenience loggers stream, as set with
-// SetConvenienceLogger(). It usses the standard logger (package log) if te Convenience logger is unset.
+// SetConvenienceLogger(). It uses the standard logger (package log) if te Convenience logger is unset.
 // The message is only printed if ActiveLogLevel is set higher or equal to 'Warn'
 func LogWarn(format string, args ...interface{}) {
-	if conveninceLogger != nil {
-		conveninceLogger.writelog(Warn, format, args...)
+	if convenienceLogger != nil {
+		convenienceLogger.writelog(Warn, format, args...)
 	} else {
 		outputToStandardLogger(Warn, format, args...)
 	}
 }
 
 // LogError works just as fmt.Printf, but prints into the Convenience loggers stream, as set with
-// SetConvenienceLogger(). It usses the standard logger (package log) if te Convenience logger is unset.
+// SetConvenienceLogger(). It uses the standard logger (package log) if te Convenience logger is unset.
 // The message is only printed if ActiveLogLevel is set higher or equal to 'Error'
 func LogError(format string, args ...interface{}) {
-	if conveninceLogger != nil {
-		conveninceLogger.writelog(Error, format, args...)
+	if convenienceLogger != nil {
+		convenienceLogger.writelog(Error, format, args...)
 	} else {
 		outputToStandardLogger(Error, format, args...)
 	}
 }
 
 // LogFatal works just as fmt.Printf, but prints into the Convenience loggers stream, as set with
-// SetConvenienceLogger(). It usses the standard logger (package log) if te Convenience logger is unset.
+// SetConvenienceLogger(). It uses the standard logger (package log) if te Convenience logger is unset.
 // The message is only printed if ActiveLogLevel is set hogher or equal to 'Fatal'
 func LogFatal(format string, args ...interface{}) {
-	if conveninceLogger != nil {
-		conveninceLogger.writelog(Fatal, format, args...)
+	if convenienceLogger != nil {
+		convenienceLogger.writelog(Fatal, format, args...)
 	} else {
 		outputToStandardLogger(Fatal, format, args...)
 	}

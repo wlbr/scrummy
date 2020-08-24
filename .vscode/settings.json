@@ -23,5 +23,6 @@
 
     // Whether to show 'Run Code' icon in editor title menu.
     "code-runner.showRunIconInEditorTitleMenu": false,
+    "go.inferGopath": false,
 
 }

@@ -9,15 +9,14 @@ clean:
 	rm -f $(TARGET)
 	rm -f gotils/loglevel_string.go
 
-generate:
+generate: dep
 	go generate gotils/loglevel.go
 
 build: generate
 	go build -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
 
 run: generate
-	#go run -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go 
-	go run cmd/$(TARGET)/$(TARGET).go -LogLevel Warn
+	go run -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go   -loglevel Debug
 
 debug: generate
 	dlv debug cmd/$(TARGET)/$(TARGET).go -RunAsServer
@@ -29,13 +28,16 @@ buildcmd: clean generate
 	GOOS=windows GOARCH=386   go build -o bin/$(TARGET)_win32        -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
 	GOOS=windows GOARCH=amd64 go build -o bin/$(TARGET)_win64        -ldflags "$(LINKERFLAGS)" cmd/$(TARGET)/$(TARGET).go
 
+test:
+	@echo Running test job...
+	go test ./... -cover -coverprofile=coverage.txt
 
 
-deploy: rbuild
-	rsync -a --progress $(TARGET) $(HOST):./fcgi-bin/
-
-dep:
-	go get -u github.com/360EntSecGroup-Skylar/excelize
-	go get -u github.com/wcharczuk/go-chart
-	#go get -u github.com/wlbr/enumer
+$(GOPATH)/src/github.com/alvaroloes/enumer:
 	go get -u github.com/alvaroloes/enumer
+
+
+dep: $(GOPATH)/src/github.com/alvaroloes/enumer
+	@echo Running dep job...
+
+

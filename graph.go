@@ -7,7 +7,7 @@ import (
 
 	xlsx "github.com/360EntSecGroup-Skylar/excelize"
 	chart "github.com/wcharczuk/go-chart"
-	"github.com/wlbr/scrummy/gotils"
+	"github.com/wlbr/scrummy/tools"
 )
 
 // A Set represents a set of data on the chart, probably a line.
@@ -50,7 +50,7 @@ func DrawGraphs(xfile string) {
 	xlsx, err := xlsx.OpenFile(xfile)
 	if err != nil {
 		cwd, _ := os.Getwd()
-		gotils.LogError("Cannot open excel file '%s'. Current working directory is '%s'.", xfile, cwd)
+		tools.LogError("Cannot open excel file '%s'. Current working directory is '%s'.", xfile, cwd)
 		return
 	}
 
@@ -127,8 +127,8 @@ func DrawGraphs(xfile string) {
 	}
 
 	var percentfloats []float64
-	mi := math.Floor(gotils.Minf64(result)/10) * 10
-	ma := math.Ceil(gotils.Maxf64(result)/10) * 10
+	mi := math.Floor(tools.Minf64(result)/10) * 10
+	ma := math.Ceil(tools.Maxf64(result)/10) * 10
 	for i := mi; i <= ma; i = i + 10 {
 		percentfloats = append(percentfloats, i)
 	}
